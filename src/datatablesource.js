@@ -22,7 +22,7 @@ export const userColumns = [
     {
       field: "age",
       headerName: "Deskripsi",
-      width: 300,
+      width: 400,
     },
     // {
     //   field: "status",

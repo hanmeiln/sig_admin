@@ -1,17 +1,23 @@
 import Navbar from "../../components/navbar/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
-import "./editp.scss";
+// import { useState } from "react";
+import "./newp.scss";
 
-const Editp = ({ inputs, title }) => {
+const New = ({ inputs, title }) => {
+    // const [file, setFile] = useState("");
+
     return (
-    <div className="edit">
+<div className="new">
       <Sidebar />
-      <div className="editContainer">
+      <div className="newContainer">
         <Navbar />
         <div className="top">
           <h1>{title}</h1>
         </div>
         <div className="bottom">
+          {/* <div className="left">
+          </div>
+          <div className="right"> */}
             <form>
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
@@ -20,12 +26,12 @@ const Editp = ({ inputs, title }) => {
                 </div>
               ))}
               <button>Send</button>
-              <button>Delete</button>
             </form>
           </div>
         </div>
       </div>
+    // </div>
     )
 }
 
-export default Editp;
+export default New;

@@ -15,7 +15,7 @@ const Datatable = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 90,
       renderCell: (params) => {
         return (
           <div className="cellAction">

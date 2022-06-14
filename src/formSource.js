@@ -28,7 +28,7 @@ export const userInputs = [
     },
     {
       id: 2,
-      label: "Logitude",
+      label: "Longitude",
       type: "text",
       placeholder: "0123456",
     },

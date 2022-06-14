@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Datatablep = () => {
-  const [data, setData] = useState(userRows);
+  const [ data ] = useState(userRows);
 
   // const handleDelete = (id) => {
   //   setData(data.filter((item) => item.id !== id));
@@ -15,7 +15,7 @@ const Datatablep = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
         return (
           <div className="cellAction">

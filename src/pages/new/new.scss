@@ -9,7 +9,10 @@
       .bottom {
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
         box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-        padding: 10px;
+        padding-left: 20px;
+        padding-right: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         margin: 20px;
         display: flex;
   
@@ -21,18 +24,19 @@
         .left {
           flex: 1;
           text-align: center;
+          padding: 10px;
   
           img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
+            width: 350px;
+            height: 250px;
+            border-radius: 5%;
             object-fit: cover;
           }
         }
   
         .right {
           flex: 2;
-  
+
           form {
             display: flex;
             flex-wrap: wrap;
@@ -40,7 +44,7 @@
             justify-content: space-around;
   
             .formInput {
-              width: 40%;
+              width: 90%;
   
               label {
                 display: flex;

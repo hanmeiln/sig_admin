@@ -7,6 +7,7 @@ import { productInputs, userInputs } from './formSource';
 import Edit from './pages/edit/Edit';
 import Listp from './pages/listprovinsi/Listp';
 import Editp from './pages/editprovinsi/Editp';
+import Newp from './pages/newp/Newp';
 
 function App() {
   return (
@@ -22,15 +23,16 @@ function App() {
                     <Route path=':adatId' element={<Edit inputs = {userInputs} />} />
                     <Route 
                       path='new' 
-                      element={<New inputs = {userInputs} title="Add New Adat" />} 
+                      element={<New inputs = {userInputs} title="Tambah Adat" />} 
                     />
                 </Route>
                 <Route path='provinsi'>
                     <Route index element={<Listp/>} />
-                    <Route path=':provinsiId' element={<Editp inputs = {productInputs} />} />
+                    <Route path=':provinsiId' 
+                    element={<Editp inputs = {productInputs} title="Tambah Provinsi"/>} />
                     <Route 
                       path='new' 
-                      element={<New inputs = {productInputs} title="Add New Province"/>} 
+                      element={<Newp inputs = {productInputs} title="Tambah Provinsi"/>} 
                     />
                 </Route>
           </Route>
