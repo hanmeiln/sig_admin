@@ -4,8 +4,43 @@ import LocalFloristRoundedIcon from '@mui/icons-material/LocalFloristRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { Link } from "react-router-dom"
+import { logout } from "../../redux/userRedux";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
+const SidebarData = [
+    {
+        id: 1,
+        title: "Dashboard",
+        icon: <DashboardRoundedIcon className="icon" />,
+        path: "/",
+    },
+    {
+        id: 2,
+        title: "Data Adat",
+        icon: <LocalFloristRoundedIcon className="icon" />,
+        path: "/adat",
+    },
+    {
+        id: 3,
+        title: "Data Provinsi",
+        icon: <LocationOnRoundedIcon className="icon" />,
+        path: "/provinsi",
+    },
+    {
+        id: 3,
+        title: "Logout",
+        icon: <LogoutRoundedIcon className="icon" />,
+        path: "/login",
+    },
+]
+
   return (
     <div className='sidebar'>
         <div className='top'>
@@ -15,33 +50,31 @@ const Sidebar = () => {
         </div>
         <hr />
         <div className='center'>
-            <ul>
-                <p className="title">MAIN</p>
-                <Link to="/" style={{ textDecoration:"none" }}>
-                <li>
-                    <DashboardRoundedIcon className='icon' />
-                    <span>Dashboard</span>
+        <ul>
+            <p className="title">MAIN</p>
+            {SidebarData.map((item) => (
+                <Link
+                    key={item.id}
+                    to={item.path}
+                    style={{ textDecoration: "none" }}
+                >
+                <li
+                    id={
+                        window.location.pathname.split("/")[1] ===
+                        item.path.split("/")[1]
+                        ? "active"
+                        : ""
+                    }
+                    onClick={
+                        item.title === "Logout" ? handleLogout : ""
+                    }
+                >
+                {item.icon}
+                <span>{item.title}</span>
                 </li>
                 </Link>
-                <p className="title">LISTS</p>
-                <Link to="/adat" style={{ textDecoration:"none" }}>
-                <li>
-                    <LocalFloristRoundedIcon className='icon' />
-                    <span>Data Adat</span>
-                </li>
-                </Link>
-                <Link to="/provinsi" style={{ textDecoration:"none" }}>
-                <li>
-                    <LocationOnRoundedIcon className='icon' />
-                    <span>Data Provinsi</span>
-                </li>
-                </Link>
-                <p className="title">USER</p>
-                <li>
-                    <LogoutRoundedIcon className='icon' />
-                    <span>Logout</span>
-                </li>
-            </ul>
+            ))}
+        </ul>
         </div>
     </div>
   )

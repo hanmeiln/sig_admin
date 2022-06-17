@@ -9,7 +9,7 @@ const Editp = ({ inputs, title }) => {
       <div className="editContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>Edit data provinsi</h1>
         </div>
         <div className="bottom">
             <form>
