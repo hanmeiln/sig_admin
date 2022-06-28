@@ -6,8 +6,8 @@ const Navbar = () => {
     <div className='navbar'>
       <div className="wrapper">
         <div className="items">
-        <div className="search">
-          <input type='text' placeholder='Search...'/>
+        {/* <div className="search"> */}
+          {/* <input type='text' placeholder='Search...'/>
           <SearchRoundedIcon />
         </div>
           <div className="item">
@@ -16,7 +16,7 @@ const Navbar = () => {
               alt=""
               className="avatar"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

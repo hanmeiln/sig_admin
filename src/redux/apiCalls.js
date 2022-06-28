@@ -29,7 +29,7 @@ export const login = async (dispatch, user, setError) => {
     dispatch(loginStart());
     setError(false);
     try {
-        const res = await publicRequest.post("/auth/login", user);
+        const res = await publicRequest.post(`/auth/login`, user);
         dispatch(loginSuccess(res.data));
         console.log(res.data);
         window.location.reload();
@@ -43,7 +43,7 @@ export const login = async (dispatch, user, setError) => {
 export const getUsers = async (dispatch) => {
     dispatch(getUsersStart());
     try {
-        const res = await userRequest.get("/admins");
+        const res = await userRequest.get(`/admins`);
         dispatch(getUsersSuccess(res.data));
     } catch (err) {
         dispatch(getUsersFailure());
@@ -87,7 +87,7 @@ export const deleteUser = async (id, dispatch, toast) => {
 export const getProvinces = async (dispatch) => {
     dispatch(getProvincesStart());
     try {
-        const res = await publicRequest.get("/provinces");
+        const res = await publicRequest.get(`/province`);
         dispatch(getProvincesSuccess(res.data));
     } catch (err) {
         dispatch(getProvincesFailure());
@@ -96,7 +96,7 @@ export const getProvinces = async (dispatch) => {
 
 export const getProvince = async (provinceId, setProvince) => {
     try {
-        const res = await publicRequest.get(`/provinces/find/${provinceId}`);
+        const res = await publicRequest.get(`/province/find/${provinceId}`);
         console.log(res.data);
         setProvince(res.data);
     } catch (err) {}
@@ -105,7 +105,7 @@ export const getProvince = async (provinceId, setProvince) => {
 export const deleteProvince = async (id, dispatch, toast) => {
     dispatch(deleteProvincesStart());
     try {
-        const res = await userRequest.delete(`/provinces/${id}`);
+        const res = await userRequest.delete(`/province/${id}`);
         dispatch(deleteProvincesSuccess(id));
         toast.success("Berhasil Menghapus");
     } catch (err) {
@@ -122,7 +122,7 @@ export const updateProvince = async (
 ) => {
     try {
         // update
-        const res = await userRequest.put(`/provinces/${provinceId}`, province);
+        const res = await userRequest.put(`/province/${provinceId}`, province);
         console.log(res.data);
         setIsSubmitting(false);
         toast.success("Perubahan Berhasil Disimpan");
@@ -134,43 +134,64 @@ export const updateProvince = async (
 
 export const addCulture = async (culture, toast, setIsSubmitting) => {
     try {
-        const res = await userRequest.post(`/cultures`, culture);
-        console.log(res);
+        const res = await userRequest.post(`/adat`, culture);
+        console.log(res.data);
         console.log("SUKSES");
         setIsSubmitting(false);
-        toast.success("Permainan Berhasil Dibuat");
+        toast.success("Adat Berhasil Dibuat");
     } catch (err) {
         console.log(err);
         setIsSubmitting(false);
-        toast.error("Permainan Gagal Dibuat");
+        toast.error("Adat Gagal Dibuat");
     }
 };
 
 export const getCultures = async (dispatch) => {
     dispatch(getCulturesStart());
     try {
-        const res = await publicRequest.get("/cultures");
+        const res = await publicRequest.get(`/adat`);
         dispatch(getCulturesSuccess(res.data));
     } catch (err) {
         dispatch(getCulturesFailure());
     }
 };
 
+export const getCulture = async (id, setCulture) => {
+    try {
+        const res = await publicRequest.get(`/adat/find/${id}`);
+        console.log(res.data);
+        setCulture(res.data);
+    } catch (err) {}
+};
+
+export const updateCulture = async (id, input, setIsSubmitting, toast) => {
+    try {
+        // update
+        const res = await userRequest.put(`/adat/${id}`, input);
+        console.log(res.data);
+        setIsSubmitting(false);
+        toast.success("Edit berhasil");
+    } catch (err) {
+        setIsSubmitting(false);
+        toast.error("Edit gagal");
+    }
+};
+
 export const deleteCulture = async (id, dispatch, toast) => {
     dispatch(deleteCulturesStart());
     try {
-        const res = await userRequest.delete(`/cultures/${id}`);
+        const res = await userRequest.delete(`/adat/${id}`);
         dispatch(deleteCulturesSuccess(id));
-        toast.success("Berhasil Menghapus");
+        toast.success("Berhasil menghapus");
     } catch (err) {
         dispatch(deleteCulturesFailure());
-        toast.error("Gagal Menghapus");
+        toast.error("Gagal menghapus");
     }
 };
 
 export const addProvince = async (province, toast, setIsSubmitting) => {
     try {
-        const res = await userRequest.post(`/provinces`, province);
+        const res = await userRequest.post(`/province`, province);
         console.log(res.data);
         console.log("SUKSES");
         setIsSubmitting(false);

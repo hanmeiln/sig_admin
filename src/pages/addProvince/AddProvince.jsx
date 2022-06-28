@@ -6,35 +6,28 @@ import "react-toastify/dist/ReactToastify.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import "./editp.scss";
-import { useLocation } from "react-router-dom";
-import { getProvince, updateProvince } from "../../redux/apiCalls";
+import "./addprovince.scss";
+import { addProvince } from "../../redux/apiCalls";
 
-const Editp = () => {
+const AddProvince = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [province, setProvince] = useState({});
-    const location = useLocation();
-    const provinceId = location.pathname.split("/")[2];
-    console.log(provinceId);
-
-    useEffect(() => {
-        getProvince(provinceId, setProvince);
-    }, []);
-
     return (
-        <div className="editProvince">
+        <div className="addProvince">
             <Formik
                 initialValues={{
-                    name: province.name,
-                    lat: province.lat,
-                    long: province.long,
-                    geojson: JSON.stringify(province.geojson),
+                    name: "",
+                    lat: null,
+                    long: null,
+                    geojson: "",
                 }}
-                enableReinitialize
                 validationSchema={Yup.object({
                     name: Yup.string().required("Harus diisi"),
-                    lat: Yup.number().required("Harus diisi"),
-                    long: Yup.number().required("Harus diisi"),
+                    lat: Yup.number()
+                        .typeError("Harus berupa angka")
+                        .required("Harus diisi"),
+                    long: Yup.number()
+                        .typeError("Harus berupa angka")
+                        .required("Harus diisi"),
                     geojson: Yup.string().required("Harus diisi"),
                 })}
                 onSubmit={(values) => {
@@ -44,16 +37,10 @@ const Editp = () => {
                         geojson: JSON.parse(values.geojson),
                     };
 
-                    console.log(province);
-                    updateProvince(
-                        provinceId,
-                        province,
-                        setIsSubmitting,
-                        toast
-                    );
+                    addProvince(province, toast, setIsSubmitting);
                 }}
             >
-                <Form className="editProvince">
+                <Form className="addProvince">
                     <TextField
                         label="Nama Provinsi"
                         type="text"
@@ -88,11 +75,7 @@ const Editp = () => {
                                   [
                                     [110.1698084443043, -2.8529116617437467],
                                     [110.1520077259758, -2.8829539688505292],
-                                    [110.14665837228614, -2.8986491647271464],
-                                    [110.17199421596035, -2.9149818962974337],
-                                    [110.20061433068685, -2.893346489448902],
-                                    [110.20170740717117, -2.883666436956446],
-                                    [110.1698084443043, -2.8529116617437467]`}
+                                    `}
                     />
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? (
@@ -102,7 +85,7 @@ const Editp = () => {
                                 thickness={5}
                             />
                         ) : (
-                            "Simpan"
+                            "Tambah"
                         )}
                     </button>
                 </Form>
@@ -122,4 +105,4 @@ const Editp = () => {
     );
 };
 
-export default Editp;
+export default AddProvince;

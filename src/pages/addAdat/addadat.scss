@@ -1,17 +1,8 @@
-.editProvince {
+.addCulture {
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 20px;
-
-    .wrap {
-        display: flex;
-        gap: 30px;
-
-        div {
-            flex: 1;
-        }
-    }
 
     .img {
 
@@ -35,12 +26,26 @@
         .img-container {
             border: 1px solid lightgray;
             padding: 5px;
-            height: 300px;
-            overflow-y: auto;
+            display: flex;
+            align-items: center;
 
-            img {
-                height: 100%;
-                object-fit: contain;
+
+            .image {
+                position: relative;
+                height: 300px;
+
+                img {
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                svg {
+                    position: absolute;
+                    color: red;
+                    right: 0;
+                    cursor: pointer;
+                    background-color: rgba($color: #000000, $alpha: 0.7);
+                }
             }
         }
 
@@ -96,5 +101,52 @@
         &:disabled {
             cursor: not-allowed;
         }
+    }
+
+    .input-video {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        label {}
+
+        .icon {
+            cursor: pointer;
+        }
+
+        input {
+            margin: 5px 0;
+            padding: 10px;
+            outline: 0.5px solid lightgray;
+            border-style: none;
+            border-radius: 5px;
+
+            &:hover {
+                outline: 1px solid black;
+            }
+
+            &:focus {
+                outline: 2px solid #4093f9;
+
+            }
+        }
+
+        p {
+            font-size: 0.8rem;
+            color: #888;
+        }
+    }
+
+    .videos-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+
+        iframe {
+            border: none;
+        }
+
     }
 }

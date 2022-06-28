@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const provincesSlice = createSlice({
-    name: "provinces",
+    name: "province",
     initialState: {
-        provinces: [],
+        province: [],
         isFetching: false,
         error: false,
     },

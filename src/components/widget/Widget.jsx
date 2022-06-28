@@ -1,15 +1,12 @@
 import './widget.scss'
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
+import React from "react";
+// import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import LocalFloristRoundedIcon from '@mui/icons-material/LocalFloristRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 
-const Widget = ({ type }) => {
+const Widget = ({ type, value }) => {
     let data;
-
-    //temporary
-    const amount = 100;
-    const diff = 20;
 
     switch (type) {
         case "admin":
@@ -26,13 +23,14 @@ const Widget = ({ type }) => {
                     }}
                 />
                 ),
+                path: "/users",
             };
             break;
         case "adat":
             data = {
                 title: "DATA ADAT",
                 isMoney: false,
-                link: "View all",
+                link: "Lihat semua",
                 icon: (
                     <LocalFloristRoundedIcon 
                     className='icon' 
@@ -40,15 +38,16 @@ const Widget = ({ type }) => {
                         color: '#F190B7',
                         backgroundColor: '#FBD6D2',
                     }}
-                />
+                    />
                 ),
+                path: "/culture",
             };
             break;
         case "provinsi":
             data = {
                 title: "DATA PROVINSI",
                 isMoney: false,
-                link: "View all",
+                link: "Lihat semua",
                 icon: (
                 <LocationOnRoundedIcon
                  className='icon'
@@ -58,6 +57,7 @@ const Widget = ({ type }) => {
                     }}
                 />
                 ),
+                path: "/province",
             };
             break;
         default:
@@ -67,18 +67,20 @@ const Widget = ({ type }) => {
     <div className='widget'>
         <div className="left">
             <span className='title'>{data.title}</span>
-            <span className='counter'>{data.isMoney && "$"} {amount}</span>
-            <span className='link'>{data.link}</span>
+            <span className='counter'>{value}</span>
+            <span className='link'>
+                <a href={data.path}>{data.link}</a>
+            </span>
         </div>
         <div className="right">
-            <div className="percentage positive">
+            {/* <div className="percentage positive">
                 <ArrowDropUpRoundedIcon />
                 {diff} %
-            </div>
+            </div> */}
             {data.icon}
         </div>
     </div>
   )
 }
 
-export default Widget
+export default Widget;

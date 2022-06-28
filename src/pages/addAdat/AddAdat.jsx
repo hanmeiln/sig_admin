@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
-import SelectField from "../../components/fields/selectfield/SelectField"
+import SelectField from "../../components/fields/selectfield/SelectField";
 import TextArea from "../../components/fields/textarea/TextArea";
 import TextField from "../../components/fields/textfield/TextField";
-import {
-    addCulture,
-    getCulture,
-    getProvinces,
-    updateCulture,
-} from "../../redux/apiCalls";
+import { addCulture, getProvinces } from "../../redux/apiCalls";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
@@ -21,48 +16,32 @@ import "react-toastify/dist/ReactToastify.css";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import "./edit.scss";
+import "./addadat.scss";
 import app from "../../firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import CustomFilter from "../../components/fields/customFilter/CustomFilter";
-import FieldSelected from "../../components/fields/fieldSelected/FieldSelected";
 
-const Edit = () => {
-    const [video, setVideo] = useState([]);
+const AddAdat = () => {
     const [image, setImage] = useState("");
-    const [images, setImages] = useState([]);
-    const [imageUrl, setImageUrl] = useState("");
-    const [imagesUrls, setImagesUrls] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [culture, setCulture] = useState({});
-    const location = useLocation();
+    const [url, setUrl] = useState("");
+    const [year, setYear] = useState("");
     const [province, setProvince] = useState("");
-    const id = location.pathname.split("/")[2];
+    const [urls, setUrls] = useState([]);
+    const [videos, setVideos] = useState([]);
+    const [images, setImages] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const dispatch = useDispatch();
-    const { provinces } = useSelector((state) => state.provinces);
-    console.log(culture);
+    const { provinces, isFetching } = useSelector((state) => state.provinces);
 
     useEffect(() => {
         getProvinces(dispatch);
-        getCulture(id, setCulture);
-        setImage("");
-        setImages([]);
-    }, [isSubmitting === false]);
-
-    useEffect(() => {
-        setProvince(culture.province?._id);
-        setVideo(culture.video);
-        setImageUrl(culture.img);
-        setImagesUrls(culture.imgs);
-    }, [culture.province, culture.video, culture.img, culture.imgs]);
-
-    console.log(imagesUrls);
+    }, []);
 
     const handleVideos = (e) => {
-        setVideo(e.target.value.split(","));
+        setVideos(e.target.value.split(","));
     };
+
+    console.log(videos);
 
     const handleUpload = () => {
         return new Promise((resolve, reject) => {
@@ -170,7 +149,7 @@ const Edit = () => {
                 //     })
                 //     .catch((err) => console.log(err));
             } else {
-                resolve([]);
+                resolve();
             }
         });
     };
@@ -190,36 +169,29 @@ const Edit = () => {
     const handleSubmit = async (values) => {
         const uri = await handleUpload();
         const uris = await handleUploads();
-        console.log("uris: ", uris);
-        const input = {
+        const culture = {
             ...values,
-            img: imageUrl ? imageUrl : uri,
-            imgs:
-                uris?.length < 1
-                    ? imagesUrls
-                    : [...imagesUrls, ...uris].filter(Boolean),
-            video: video.filter(Boolean),
-            province: province,
+            img: uri,
+            imgs: uris,
+            videos: videos.filter(Boolean),
         };
-        console.log(input);
-
-        updateCulture(id, input, setIsSubmitting, toast);
+        console.log(culture);
+        addCulture(culture, toast, setIsSubmitting);
     };
 
-    console.log(culture.province);
-
     return (
-        <div className="editCulture">
+        <div className="addCulture">
             <Formik
                 initialValues={{
-                    name: culture.name,
-                    year: culture.year,
-                    reg_num: culture.reg_num,
-                    desc: culture.desc,
+                    name: "",
+                    year: null,
+                    reg_num: "",
+                    desc: "",
+                    province: "",
                 }}
-                enableReinitialize
                 validationSchema={Yup.object({
                     name: Yup.string().required("Harus diisi"),
+                    province: Yup.string().required("Harus diisi"),
                 })}
                 onSubmit={(values) => {
                     setIsSubmitting(true);
@@ -231,31 +203,29 @@ const Edit = () => {
                         label="Nama Adat"
                         type="text"
                         name="name"
-                        placeholder="Adat Tumper Adat Perkawinan Masyarakat Osing, Banyuwangi"
+                        placeholder="Permainan Enggrang"
                     />
-                    <FieldSelected
+                    <SelectField
                         options={provinces}
                         label="Provinsi"
-                        value={province}
-                        setValue={setProvince}
+                        name="province"
                     />
-
                     <TextField
                         label="Tahun Registrasi"
                         type="number"
                         name="year"
-                        placeholder="2010"
+                        placeholder="2018"
                     />
                     <TextField
                         label="Nomor Registrasi"
                         type="text"
                         name="reg_num"
-                        placeholder="2010000002"
+                        placeholder="0912389485"
                     />
                     <TextArea
                         label="Deskripsi"
                         name="desc"
-                        placeholder="Adat perkawinan dala Adat Tumper di lakukan sehubungan dengan adanya kepercayaan masyarakat Osing Banyuwangi yang melarang melakukan perkawinan antara sepasang pengantin yang berstatus sebagai anak sulung di lingkungan keluarganya masing-masing. Apabila perkawinan tetap di lakukan maka di percaya dapat berakibat pasangan pengantin baru itu akan banyak mengalami halangan dan rintangan dalam mengarungi hidupnya. Akan tetapi, apabila di sebabkan oleh sesuatu hal kemudian perkawian antara pasangan yang berstatus anak sulung tetap harus di lakukan maka untuk mencegah sesuatu hal-hal yang tak di inginkan, maka semua adat di lakukan dalam upacara Adat Tumper saat upacara berlangsung."
+                        placeholder="Permainan enggrang berasal dari Jawa Barat merupakan ...."
                     />
 
                     <div className="img">
@@ -269,36 +239,24 @@ const Edit = () => {
                         <input
                             type="file"
                             id="file1"
-                            onChange={(e) => {
-                                setImage(e.target.files[0]);
-                                setImageUrl("");
-                            }}
+                            onChange={(e) => setImage(e.target.files[0])}
                             style={{
                                 display: "none",
                                 backgroundColor: "red",
                             }}
                         />
-                        {image || imageUrl ? (
+                        {image && (
                             <div className="img-container">
                                 <div className="image">
                                     <img
-                                        src={
-                                            imageUrl
-                                                ? imageUrl
-                                                : URL.createObjectURL(image)
-                                        }
+                                        src={URL.createObjectURL(image)}
                                         alt="img"
                                     />
                                     <CloseRoundedIcon
-                                        onClick={() => {
-                                            setImage("");
-                                            setImageUrl("");
-                                        }}
+                                        onClick={() => setImage("")}
                                     />
                                 </div>
                             </div>
-                        ) : (
-                            ""
                         )}
                     </div>
 
@@ -320,24 +278,8 @@ const Edit = () => {
                                 backgroundColor: "red",
                             }}
                         />
-                        {(images?.length > 0 || imagesUrls?.length > 0) && (
+                        {images.length > 0 && (
                             <div className="images-container">
-                                {imagesUrls?.map((image, i) => (
-                                    <div className="images">
-                                        <img src={image} alt="img" />
-                                        <CloseRoundedIcon
-                                            onClick={() =>
-                                                setImagesUrls(
-                                                    imagesUrls.filter(
-                                                        (image) =>
-                                                            image !==
-                                                            imagesUrls[i]
-                                                    )
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                ))}
                                 {images.map((image, i) => (
                                     <div className="images">
                                         <img
@@ -357,7 +299,6 @@ const Edit = () => {
                         <input
                             type="text"
                             placeholder="Link1,https://www.youtube.com/embed/WAuN5yVFkfQ,Link3"
-                            value={video}
                             onChange={handleVideos}
                         />
                         <p>
@@ -366,9 +307,9 @@ const Edit = () => {
                         </p>
                     </div>
 
-                    {video?.length > 0 && (
+                    {videos.length > 0 && (
                         <div className="videos-container">
-                            {video?.filter(Boolean).map((video) => (
+                            {videos.filter(Boolean).map((video) => (
                                 <iframe
                                     width="320"
                                     height="215"
@@ -380,16 +321,13 @@ const Edit = () => {
 
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? (
-                            <>
-                                <CircularProgress
-                                    color="inherit"
-                                    size="1.7rem"
-                                    thickness={5}
-                                />
-                                Loading ...
-                            </>
+                            <CircularProgress
+                                color="inherit"
+                                size="1.7rem"
+                                thickness={5}
+                            />
                         ) : (
-                            "Simpan"
+                            "Tambah"
                         )}
                     </button>
                 </Form>
@@ -409,4 +347,4 @@ const Edit = () => {
     );
 };
 
-export default Edit;
+export default AddAdat;

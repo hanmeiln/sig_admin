@@ -4,7 +4,7 @@ import TextArea from "../../components/fields/textarea/TextArea";
 import TextField from "../../components/fields/textfield/TextField";
 import {
     addCulture,
-    getCulture,
+    getCultures,
     getProvinces,
     updateCulture,
 } from "../../redux/apiCalls";
@@ -29,7 +29,7 @@ import CustomFilter from "../../components/fields/customFilter/CustomFilter";
 import FieldSelected from "../../components/fields/fieldSelected/FieldSelected";
 
 const Edit = () => {
-    const [video, setVideo] = useState([]);
+    const [videos, setVideos] = useState([]);
     const [image, setImage] = useState("");
     const [images, setImages] = useState([]);
     const [imageUrl, setImageUrl] = useState("");
@@ -42,26 +42,25 @@ const Edit = () => {
 
     const dispatch = useDispatch();
     const { provinces } = useSelector((state) => state.provinces);
-    console.log(culture);
 
     useEffect(() => {
         getProvinces(dispatch);
-        getCulture(id, setCulture);
+        getCultures(id, setCulture);
         setImage("");
         setImages([]);
     }, [isSubmitting === false]);
 
     useEffect(() => {
-        setProvince(culture.province?._id);
-        setVideo(culture.video);
+        setProvince(culture.province);
+        setVideos(culture.videos);
         setImageUrl(culture.img);
         setImagesUrls(culture.imgs);
-    }, [culture.province, culture.video, culture.img, culture.imgs]);
+    }, [culture.province, culture.videos, culture.img, culture.imgs]);
 
     console.log(imagesUrls);
 
     const handleVideos = (e) => {
-        setVideo(e.target.value.split(","));
+        setVideos(e.target.value.split(","));
     };
 
     const handleUpload = () => {
@@ -198,8 +197,7 @@ const Edit = () => {
                 uris?.length < 1
                     ? imagesUrls
                     : [...imagesUrls, ...uris].filter(Boolean),
-            video: video.filter(Boolean),
-            province: province,
+            videos: videos.filter(Boolean),
         };
         console.log(input);
 
@@ -357,7 +355,7 @@ const Edit = () => {
                         <input
                             type="text"
                             placeholder="Link1,https://www.youtube.com/embed/WAuN5yVFkfQ,Link3"
-                            value={video}
+                            value={videos}
                             onChange={handleVideos}
                         />
                         <p>
@@ -366,9 +364,9 @@ const Edit = () => {
                         </p>
                     </div>
 
-                    {video?.length > 0 && (
+                    {videos?.length > 0 && (
                         <div className="videos-container">
-                            {video?.filter(Boolean).map((video) => (
+                            {videos?.filter(Boolean).map((video) => (
                                 <iframe
                                     width="320"
                                     height="215"
