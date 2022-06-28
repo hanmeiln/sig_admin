@@ -23,7 +23,6 @@ const Widget = ({ type, value }) => {
                     }}
                 />
                 ),
-                path: "/users",
             };
             break;
         case "adat":

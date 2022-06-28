@@ -21,7 +21,7 @@ const Home = () => {
             <div className="homeContainer">
                 <Navbar />
                 <div className="widgets">
-                    <Widget type='admin' value={users.length} />
+                    {/* <Widget type='admin' value={users.length} /> */}
                     <Widget type='adat' value={cultures.length} />
                     <Widget type='provinsi' value={provinces.length}/>
                 </div>
