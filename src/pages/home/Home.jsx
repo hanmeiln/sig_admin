@@ -22,8 +22,8 @@ const Home = () => {
                 <Navbar />
                 <div className="widgets">
                     {/* <Widget type='admin' value={users.length} /> */}
-                    <Widget type='adat' value={cultures.length} />
-                    <Widget type='provinsi' value={provinces.length}/>
+                    <Widget type='adat' value={cultures?.length} />
+                    <Widget type='provinsi' value={provinces?.length}/>
                 </div>
                 {/* <div className="charts">
                     <Featured />
