@@ -203,7 +203,7 @@ const AddAdat = () => {
                         label="Nama Adat"
                         type="text"
                         name="name"
-                        placeholder="Permainan Enggrang"
+                        placeholder="Adat Tumper"
                     />
                     <SelectField
                         options={provinces}
@@ -225,7 +225,7 @@ const AddAdat = () => {
                     <TextArea
                         label="Deskripsi"
                         name="desc"
-                        placeholder="Permainan enggrang berasal dari Jawa Barat merupakan ...."
+                        placeholder="Adat tumper merupakan adat..."
                     />
 
                     <div className="img">
@@ -294,7 +294,7 @@ const AddAdat = () => {
                             </div>
                         )}
                     </div>
-                    <div className="input-video">
+                    {/* <div className="input-video">
                         <label htmlFor="">Galeri Video</label>
                         <input
                             type="text"
@@ -317,7 +317,7 @@ const AddAdat = () => {
                                 ></iframe>
                             ))}
                         </div>
-                    )}
+                    )} */}
 
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? (

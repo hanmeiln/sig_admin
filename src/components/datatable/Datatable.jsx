@@ -95,7 +95,7 @@ const Datatable = ({ rows, columns, handleDelete }) => {
                     <div className="search">
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Cari..."
                             value={inputSearch}
                             onChange={(e) => setInputSearch(e.target.value)}
                             onKeyPress={(event) => {
