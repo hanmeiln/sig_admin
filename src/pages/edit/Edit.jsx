@@ -352,7 +352,7 @@ const Edit = () => {
                             </div>
                         )}
                     </div>
-                    <div className="input-video">
+                    {/* <div className="input-video">
                         <label htmlFor="">Galeri Video</label>
                         <input
                             type="text"
@@ -376,7 +376,7 @@ const Edit = () => {
                                 ></iframe>
                             ))}
                         </div>
-                    )}
+                    )} */}
 
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? (
