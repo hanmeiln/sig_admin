@@ -65,7 +65,7 @@ const Login = () => {
                         )}
                     </button>
                 </form>
-                {error && <p className="error">Username / Password Salah</p>}
+                {error && <p className="error">Username atau Password Anda Salah</p>}
             </div>
         </div>
     );

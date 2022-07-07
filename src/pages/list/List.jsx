@@ -1,12 +1,9 @@
 import React, { useEffect } from "react";
 import "./list.scss"
-// import Sidebar from "../../components/sidebar/Sidebar"
-// import Navbar from "../../components/navbar/Navbar"
 import Datatable from "../../components/datatable/Datatable"
 import { deleteCulture, getCultures } from "../../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 const List = () => {
   const dispatch = useDispatch();
@@ -27,7 +24,7 @@ const List = () => {
         field: "year",
         headerName: "Tahun",
         width: 70,
-      //   flex: 1,
+        flex: 1,
         renderCell: (params) => {
             return params.row?.year || "-";
         },
@@ -36,7 +33,7 @@ const List = () => {
           field: "name",
           headerName: "Nama Adat",
           minWidth: 250,
-        //   flex: 1,
+          flex: 1,
 
           renderCell: (params) => {
               return params.row?.name;
@@ -46,7 +43,7 @@ const List = () => {
           field: "province",
           headerName: "Provinsi",
           minWidth: 150,
-        //   flex: 1,
+          flex: 1,
           renderCell: (params) => {
               return params.row?.province?.name;
           },
@@ -54,8 +51,8 @@ const List = () => {
       {
           field: "desc",
           headerName: "Deskripsi",
-          minWidth: 350,
-        //   flex: 1,
+          minWidth: 300,
+          flex: 1,
           renderCell: (params) => {
               return params.row?.desc || "-";
           },
