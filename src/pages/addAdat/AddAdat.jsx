@@ -190,8 +190,10 @@ const AddAdat = () => {
                     province: "",
                 }}
                 validationSchema={Yup.object({
-                    name: Yup.string().required("Harus diisi"),
-                    province: Yup.string().required("Harus diisi"),
+                    name: Yup.string().required("Nama adat harus diisi"),
+                    province: Yup.string().required("Provinsi harus diisi"),
+                    year: Yup.number().typeError("Tahun harus diisi").required("Tahun harus diisi"),
+                    reg_num: Yup.string().required("Nomor registrasi harus diisi"),
                 })}
                 onSubmit={(values) => {
                     setIsSubmitting(true);
