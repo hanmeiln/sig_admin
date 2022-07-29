@@ -19,11 +19,11 @@ const List = () => {
   };
 
   const provinceColumns = [
-      { field: "_id", headerName: "ID", minWidth: 50 },
+    //   { field: "_id", headerName: "ID", minWidth: 50 },
       {
         field: "year",
         headerName: "Tahun",
-        width: 70,
+        width: 50,
         flex: 1,
         renderCell: (params) => {
             return params.row?.year || "-";
@@ -51,7 +51,7 @@ const List = () => {
       {
           field: "desc",
           headerName: "Deskripsi",
-          minWidth: 300,
+          minWidth: 400,
           flex: 1,
           renderCell: (params) => {
               return params.row?.desc || "-";

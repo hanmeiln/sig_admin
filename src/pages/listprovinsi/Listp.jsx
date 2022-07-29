@@ -22,7 +22,7 @@ const ListP = () => {
     };
 
     const provinceColumns = [
-        { field: "_id", headerName: "ID", minWidth: 100, flex: 1 },
+        // { field: "_id", headerName: "ID", minWidth: 100, flex: 1 },
         {
             field: "name",
             headerName: "Nama Provinsi",
@@ -48,7 +48,7 @@ const ListP = () => {
         {
             field: "geojson",
             headerName: "Geojson",
-            minWidth: 200,
+            minWidth: 300,
             flex: 1,
 
             renderCell: (params) => {
